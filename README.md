@@ -16,7 +16,7 @@ Lucifer Scripts is a collection of Lua scripts created for fun and experimentati
 
 ## Getting Started
 
-To get started with Lucifer Scripts, you'll need to have Lucifer installed on your system. You can download and install Lua from the official website: [Download Lucifer]([https://www.lua.org/](https://www.growtopia.dev/lucifer)).
+To get started with Lucifer Scripts, you'll need to have Lucifer installed on your system. You can download and install Lua from the official website: [Download Lucifer]([https://www.lua.org/](https://www.growtopia.dev/lucifer).
 
 
 
