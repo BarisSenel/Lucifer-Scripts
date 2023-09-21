@@ -25,7 +25,8 @@ Now you're ready to explore the scripts!
 
 ## Scripts
 
-Soon
+1. [Harvest Script](https://github.com/BarisSenel/luciferScripts/blob/main/harvest.lua) - A script for harvesting crops in an automated and slightly absurd manner. Enjoy the uselessness!
+
 
 ## Contributing
 
