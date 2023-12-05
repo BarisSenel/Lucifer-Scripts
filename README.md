@@ -26,7 +26,7 @@ Now you're ready to explore the scripts!
 ## Scripts
 
 1. [Harvest Script](https://github.com/BarisSenel/luciferScripts/blob/main/harvest.lua) - A script for harvesting crops in an automated and slightly absurd manner. Enjoy the uselessness!
-2. [Webhook SB](https://github.com/BarisSenel/luciferScripts/blob/main/SBRet.lua) - Retrives all super broadcast from console and webhooks to your server.
+2. [Webhook Console](https://github.com/BarisSenel/luciferScripts/blob/main/ConsoleRetrieve.lua) - Retrives all super broadcast , nuke messages from console and webhooks to your server.
 
 ## Contributing
 
