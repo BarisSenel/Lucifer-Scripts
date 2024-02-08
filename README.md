@@ -2,6 +2,9 @@
 
 Welcome to the Lucifer Scripts repository! Here you will find a collection of free, perhaps slightly useless, but definitely entertaining scripts written in Lua. Feel free to explore and experiment with these scripts as you see fit.
 
+You can access tutorials and newest scripts from my youtube channel.
+[Chaos](https://www.youtube.com/@chaos_store)
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
