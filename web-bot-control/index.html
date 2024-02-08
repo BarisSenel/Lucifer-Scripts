@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos Website Control</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #botStatus {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .botBox {
+            border: 1px solid transparent;
+            margin: 10px;
+            padding: 20px;
+            max-width: 300px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(86, 52, 52, 0.1);
+            transition: transform 0.2s, border-color 0.5s, box-shadow 0.5s;
+            border-radius: 10px;
+        }
+
+        .botBox.online {
+            border-color: #006400;
+            box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+        }
+
+        .botBox.offline {
+            border-color: #8B0000;
+            box-shadow: 0 0 20px #b20202, 0 0 40px #b20202, 0 0 60px #b20202;
+        }
+
+        .botBox img {
+            max-width: 20%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .totalCount {
+            text-align: center;
+            margin: 20px;
+            font-size: 1.2em;
+            color: #fbfbfb;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        #buttonContainer {
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    background-color: transparent; /* Set a background color if needed */
+}
+
+#buttonList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 200px; 
+    height: 100px; 
+}
+
+.disconnect-button,
+.connect-button {
+    background-color: #333333;
+    color: #fff;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.5s, box-shadow 0.5s, background-color 0.5s, color 0.5s;
+    margin-bottom: 10px;
+}
+
+.disconnect-button:hover,
+.connect-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #b20202, 0 0 20px #b20202, 0 0 30px #b20202;
+    border-color: #b20202;
+    background-color: #555;
+    color: #b20202;
+}
+
+        .connect-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            border-color: #00ff00;
+            background-color: #555;
+            color: #00ff00;
+        }
+
+        .disconnect-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #b20202, 0 0 20px #b20202, 0 0 30px #b20202;
+            border-color: #b20202;
+            background-color: #555;
+            color: #b20202;
+        }
+
+        #addBotSection {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #addBotSection h2 {
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        #addBotSection label {
+            display: block;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        #addBotSection input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            width: 200px;
+        }
+
+        .remove-button {
+            background-color: #333333;
+            color: #fff;
+            border: 1px solid transparent;
+            padding: 8px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.5s, box-shadow 0.5s, background-color 0.5s, color 0.5s;
+            margin-top: 8px;
+        }
+
+        .remove-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #b20202, 0 0 20px #b20202, 0 0 30px #b20202;
+            border-color: #b20202;
+            background-color: #555;
+            color: #b20202;
+        }
+
+        #serverConfig {
+            position: fixed;
+            bottom: 10px; /* Moved to the bottom of the page */
+            right: 10px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #serverUrl {
+            width: 150px;
+            padding: 5px;
+            margin-right: 5px;
+            border: 1px solid #555;
+            border-radius: 3px;
+            color: #fff;
+            background-color: #444;
+        }
+
+        #updateServerButton {
+            padding: 5px 10px;
+            border: 1px solid #00ff00;
+            border-radius: 3px;
+            background-color: #333;
+            color: #00ff00;
+            cursor: pointer;
+        }
+
+        #updateServerButton:hover {
+            background-color: #555;
+        }
+
+        .glow-button {
+            background-color: #333333;
+            color: #fff;
+            border: 1px solid transparent;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.5s, box-shadow 0.5s;
+        }
+
+        .glow-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            border-color: #006400;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Visit our website for more products</h1>
+        <button onclick="redirectToWebsite()" class="glow-button">Visit www.chaostore.net</button>
+    </header>
+    <div id="addBotSection">
+        <h2>Add Bot:</h2>
+        <label for="growid">GrowID:</label>
+        <input type="text" id="growid" name="growid" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button onclick="addBot()" class="connect-button">Add Bot</button>
+        <div id="addBotResponse"></div>
+    </div>
+    <div id="buttonContainer">
+        <div id="buttonList">
+            <button onclick="disconnectAllBots()" class="disconnect-button">Disconnect All Bots</button>
+            <button onclick="connectAllBots()" class="connect-button">Connect All Bots</button>
+        </div>
+    </div>
+    <div id="botStatus"></div>
+    <div id="serverConfig">
+        <input type="text" id="serverUrl" placeholder="Enter Server URL">
+        <button id="updateServerButton" onclick="updateServerUrl()">Update</button>
+    </div>
+    <div class="totalCount" id="totalCount"></div>
+    <div id="botStatus"></div>
+
+    <script>
+        var config = {
+            baseUrl: 'http://192.168.1.105:80',
+            secret: 'ilovebots',
+        };
+
+        function updateServerUrl() {
+            var newBaseUrl = document.getElementById('serverUrl').value.trim();
+
+            if (newBaseUrl !== '' && !newBaseUrl.startsWith('http://') && !newBaseUrl.startsWith('https://')) {
+                newBaseUrl = 'http://' + newBaseUrl;
+            }
+
+            if (newBaseUrl !== '') {
+                config.baseUrl = newBaseUrl;
+                console.log('Server URL updated:', config.baseUrl);
+
+                var statusDiv = document.getElementById('botStatus');
+                statusDiv.innerHTML = "";
+
+                var totalCountDiv = document.getElementById('totalCount');
+                totalCountDiv.innerHTML = "";
+
+                fetchData();
+            } else {
+                console.error('Please enter a valid Server URL.');
+            }
+        }
+
+        function updateBotStatus(statuses) {
+            var statusDiv = document.getElementById('botStatus');
+            statusDiv.innerHTML = "<h2></h2>";
+
+            var onlineCount = 0;
+            var offlineCount = 0;
+
+            statuses.forEach(function (status) {
+                if (!status) {
+                    return;
+                }
+
+                var botBox = document.createElement('div');
+                botBox.className = 'botBox';
+
+                var isOnline = status.includes("Online");
+                var statusClass = isOnline ? "online" : "offline";
+
+                botBox.classList.add(statusClass);
+
+                var removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove Bot';
+                removeButton.className = 'remove-button';
+
+                removeButton.onclick = function () {
+                    removeBot(status.match(/Bot Name: (.+?)(,|$)/)?.[1] || '');
+                };
+
+                var botImage = document.createElement('img');
+                botImage.src = 'https://bolwl.dev/lucifer/images/pic04.png';
+                botBox.appendChild(botImage);
+
+                var botNamePara = document.createElement('p');
+                botNamePara.textContent = 'Bot Name: ' + status.match(/Bot Name: (.+?)(,|$)/)?.[1] || '';
+
+                var statusPara = document.createElement('p');
+                statusPara.textContent = 'Bot Status: ' + status.match(/Bot Status: (.+?)(,|$)/)?.[1] || '';
+
+                var levelPara = document.createElement('p');
+                levelPara.textContent = 'Level: ' + status.match(/Level: (\d+)(,|$)/)?.[1] || '';
+
+                var worldPara = document.createElement('p');
+                worldPara.textContent = 'Current World: ' + status.match(/Current World: (.+?)(,|$)/)?.[1] || '';
+
+                var gemPara = document.createElement('p');
+                gemPara.textContent = 'Current Gems: ' + status.match(/Current Gems: (.+?)(,|$)/)?.[1] || '';
+
+                botBox.appendChild(botNamePara);
+                botBox.appendChild(statusPara);
+                botBox.appendChild(levelPara);
+                botBox.appendChild(gemPara);
+                botBox.appendChild(worldPara);
+                botBox.appendChild(removeButton);
+                statusDiv.appendChild(botBox);
+
+                if (isOnline) {
+                    onlineCount++;
+                } else {
+                    offlineCount++;
+                }
+            });
+
+            var totalCountDiv = document.getElementById('totalCount');
+            totalCountDiv.innerHTML = `Total Online Bots: ${onlineCount}, Total Offline Bots: ${offlineCount}`;
+        }
+
+        function fetchData() {
+            fetch(`${config.baseUrl}/bot/get_bots?secret=ilovebots`, {
+                method: 'GET'
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    var botStatuses = data.split('\n');
+                    updateBotStatus(botStatuses);
+                })
+                .catch(function (error) {
+                    console.error('Error fetching bot statuses:', error);
+                });
+        }
+
+        function disconnectAllBots() {
+            fetch(`${config.baseUrl}/bot/disconnect_all?secret=ilovebots`, {
+                method: 'GET'
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    fetchData();
+                })
+                .catch(function (error) {
+                    console.error('Error disconnecting all bots:', error);
+                });
+        }
+
+        function connectAllBots() {
+            fetch(`${config.baseUrl}/bot/connect_all?secret=ilovebots`, {
+                method: 'GET'
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    fetchData();
+                })
+                .catch(function (error) {
+                    console.error('Error connecting all bots:', error);
+                });
+        }
+
+        function addBot() {
+            var growid = document.getElementById('growid').value;
+            var password = document.getElementById('password').value;
+
+            fetch(`${config.baseUrl}/bot/add_bot?secret=ilovebots&name=${growid}&password=${password}`, {
+                method: 'POST'
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    var addBotResponse = document.getElementById('addBotResponse');
+                    addBotResponse.textContent = data;
+                })
+                .catch(function (error) {
+                    console.error('Error adding bot:', error);
+                });
+        }
+
+        function removeBot(name) {
+            fetch(`${config.baseUrl}/bot/remove_bot?secret=ilovebots&name=${name}`, {
+                method: 'POST'
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    fetchData();
+                })
+                .catch(function (error) {
+                    console.error('Error removing bot:', error);
+                });
+        }
+
+        fetchData();
+
+        setInterval(fetchData, 1000);
+
+        function redirectToWebsite() {
+            window.location.href = 'https://www.chaostore.net';
+        }
+    </script>
+
+</body>
+
+</html>
