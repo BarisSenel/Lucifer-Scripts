@@ -27,7 +27,7 @@ Now you're ready to explore the scripts!
 
 1. [Harvest Script](https://github.com/BarisSenel/luciferScripts/blob/main/harvest.lua) - A script for harvesting crops in an automated and slightly absurd manner. Enjoy the uselessness!
 2. [Webhook Console](https://github.com/BarisSenel/luciferScripts/blob/main/ConsoleRetrieve.lua) - Retrives all super broadcast , nuke messages from console and webhooks to your server.
-
+3. [Web bot control](https://github.com/BarisSenel/Lucifer-Scripts/tree/main/web-bot-control) - Control your bots from website with simple script setup.
 ## Contributing
 
 We welcome contributions to Lucifer Scripts. If you have a useless Lua script that you'd like to share with the world, simply fork this repository, add your script, and submit a pull request. Please make sure your script adheres to the "useless but fun" spirit of this project.
